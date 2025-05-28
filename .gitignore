@@ -1,4 +1,7 @@
 build/
 dist/
 *.spec
+*.txt
+*.exe
+*.chromedriver
 __pycache__/
