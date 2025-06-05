@@ -25,7 +25,7 @@ def main():
     print("信息搜集工具 - 汇总页面")
     print("=" * 40)
     end_dt = datetime.today()
-    start_dt = end_dt - timedelta(days=15)
+    start_dt = end_dt - timedelta(days=30)
     print(f"统一采集时间范围: {start_dt.date()} ~ {end_dt.date()}")
     all_results = []
     for name in INFO_SOURCES:
