@@ -75,13 +75,24 @@ def collect(start_dt, end_dt):
                 if content:
                     text = content.get_text(separator="\n", strip=True)
                     summary = text[:200].replace('\n', ' ')
-                    # 保存正文到分信息源子目录，文件名带来源和日期
+                    # 保存正文到分信息源子目录，文件名带来源和日期，支持外部传入保存目录
                     try:
                         import os
                         from docx import Document
                         from docx.oxml.ns import qn
                         from docx.shared import Pt
-                        save_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../download/白宫行政令'))
+                        save_dir = None
+                        import inspect
+                        frame = inspect.currentframe()
+                        while frame:
+                            if 'save_folder' in frame.f_locals:
+                                save_folder = frame.f_locals['save_folder']
+                                if save_folder:
+                                    save_dir = os.path.join(save_folder, '白宫行政令')
+                                break
+                            frame = frame.f_back
+                        if not save_dir:
+                            save_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../download/白宫行政令'))
                         if not os.path.exists(save_dir):
                             os.makedirs(save_dir)
                         doc = Document()

@@ -76,7 +76,19 @@ def collect(start_dt, end_dt):
                 # 保存为docx，分信息源子目录，文件名带来源和日期
                 try:
                     import os
-                    save_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../download/国务院发展研究中心'))
+                    # 动态支持外部传入保存目录
+                    save_dir = None
+                    import inspect
+                    frame = inspect.currentframe()
+                    while frame:
+                        if 'save_folder' in frame.f_locals:
+                            save_folder = frame.f_locals['save_folder']
+                            if save_folder:
+                                save_dir = os.path.join(save_folder, '国务院发展研究中心')
+                            break
+                        frame = frame.f_back
+                    if not save_dir:
+                        save_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../download/国务院发展研究中心'))
                     if not os.path.exists(save_dir):
                         os.makedirs(save_dir)
                     doc = Document()

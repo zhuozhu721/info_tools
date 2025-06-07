@@ -24,7 +24,7 @@ def collect_from_source(source_name, start_dt, end_dt):
 def main():
     print("信息采集进度：")
     end_dt = datetime.today()
-    start_dt = end_dt - timedelta(days=15)
+    start_dt = end_dt - timedelta(days=10)
     all_results = []
     for name in INFO_SOURCES:
         print(f"[{name}] 开始采集...")

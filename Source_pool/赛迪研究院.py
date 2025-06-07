@@ -12,8 +12,19 @@ def collect(start_dt, end_dt):
     }
     page = 1
 
-    # PDF保存目录，分信息源子目录
-    pdf_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../download/赛迪研究院'))
+    # PDF保存目录，分信息源子目录，支持外部传入
+    pdf_dir = None
+    import inspect
+    frame = inspect.currentframe()
+    while frame:
+        if 'save_folder' in frame.f_locals:
+            save_folder = frame.f_locals['save_folder']
+            if save_folder:
+                pdf_dir = os.path.join(save_folder, '赛迪研究院')
+            break
+        frame = frame.f_back
+    if not pdf_dir:
+        pdf_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../download/赛迪研究院'))
     if not os.path.exists(pdf_dir):
         os.makedirs(pdf_dir)
 
