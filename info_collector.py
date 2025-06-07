@@ -22,23 +22,21 @@ def collect_from_source(source_name, start_dt, end_dt):
         return []
 
 def main():
-    print("信息搜集工具 - 汇总页面")
-    print("=" * 40)
+    print("信息采集进度：")
     end_dt = datetime.today()
-    start_dt = end_dt - timedelta(days=30)
-    print(f"统一采集时间范围: {start_dt.date()} ~ {end_dt.date()}")
+    start_dt = end_dt - timedelta(days=15)
     all_results = []
     for name in INFO_SOURCES:
-        print(f"\n【{name}】")
+        print(f"[{name}] 开始采集...")
         results = collect_from_source(name, start_dt=start_dt, end_dt=end_dt)
         if results:
-            print(f"共采集到 {len(results)} 条信息：")
-            for item in results:
-                print(f"- {item['date']} | {item['title']} | {item['url']}")
+            print(f"[{name}] 完成，共 {len(results)} 篇。")
+            for idx, item in enumerate(results, 1):
+                print(f"  {idx}. {item['title']}")
         else:
-            print("无数据或采集失败")
+            print(f"[{name}] 无数据或采集失败")
         all_results.extend(results)
-    print("\n信息汇总完成，共采集到%d条信息。" % len(all_results))
+    print("全部采集完成。共%d篇。" % len(all_results))
 
 if __name__ == "__main__":
     main()

@@ -75,6 +75,35 @@ def collect(start_dt, end_dt):
                 if content:
                     text = content.get_text(separator="\n", strip=True)
                     summary = text[:200].replace('\n', ' ')
+                    # 保存正文到分信息源子目录，文件名带来源和日期
+                    try:
+                        import os
+                        from docx import Document
+                        from docx.oxml.ns import qn
+                        from docx.shared import Pt
+                        save_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../download/白宫行政令'))
+                        if not os.path.exists(save_dir):
+                            os.makedirs(save_dir)
+                        doc = Document()
+                        # 标题样式
+                        heading = doc.add_heading(level=1)
+                        run = heading.add_run(title)
+                        run.font.name = u'方正小标宋简体'
+                        run._element.rPr.rFonts.set(qn('w:eastAsia'), u'方正小标宋简体')
+                        run.font.size = Pt(16)
+                        # 正文样式
+                        style = doc.styles['Normal']
+                        font = style.font
+                        font.name = u'仿宋_GB2312'
+                        font.size = Pt(12)
+                        style.element.rPr.rFonts.set(qn('w:eastAsia'), u'仿宋_GB2312')
+                        doc.add_paragraph(text)
+                        safe_title = "".join([c if c.isalnum() else "_" for c in title])[:50]
+                        file_name = f"白宫行政令_{date_str}_{safe_title}.docx"
+                        doc.save(os.path.join(save_dir, file_name))
+                        print(f"已保存: {file_name}")
+                    except Exception as e:
+                        print(f"保存docx异常: {e}")
             except Exception:
                 summary = ""
             results.append({

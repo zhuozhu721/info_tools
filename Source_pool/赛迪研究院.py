@@ -12,8 +12,8 @@ def collect(start_dt, end_dt):
     }
     page = 1
 
-    # PDF保存目录
-    pdf_dir = "ccid_pdfs"
+    # PDF保存目录，分信息源子目录
+    pdf_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../download/赛迪研究院'))
     if not os.path.exists(pdf_dir):
         os.makedirs(pdf_dir)
 
@@ -68,7 +68,7 @@ def collect(start_dt, end_dt):
                             # 尝试获取文件名
                             link_text = a.get_text(strip=True) or f"{title[:30]}_{idx}"
                             ext = ".pdf" if ".pdf" in pdf_url.lower() else ""
-                            pdf_name = f"{date}_{link_text}{ext}".replace("/", "_").replace("\\", "_").replace(":", "_")
+                            pdf_name = f"赛迪研究院_{date}_{link_text}{ext}".replace("/", "_").replace("\\", "_").replace(":", "_")
                             pdf_path = os.path.join(pdf_dir, pdf_name)
                             try:
                                 pdf_resp = requests.get(pdf_url, headers=headers, timeout=20)
