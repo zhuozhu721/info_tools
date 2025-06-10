@@ -6,7 +6,7 @@ import os
 import time
 from datetime import datetime
 
-def collect(start_dt, end_dt):
+def collect(start_dt, end_dt, save_folder=None):
     results = []
     chromedriver_path = r"C:\Program Files\Google\Chrome_107.0.5304.122\Chrome-bin\chromedriver_win32\chromedriver.exe"
     chrome_path = r"C:\Program Files\Google\Chrome_107.0.5304.122\Chrome-bin\chrome.exe"

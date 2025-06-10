@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import os
 from datetime import datetime, timedelta
 
-def collect(start_dt, end_dt):
+def collect(start_dt, end_dt, save_folder=None):
     results = []
     url = "https://www.ccidgroup.com/system/resource/sdyjs/getListData.jsp"
     headers = {

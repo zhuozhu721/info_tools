@@ -2,7 +2,7 @@ import requests
 from datetime import datetime
 import time
 
-def collect(start_dt, end_dt):
+def collect(start_dt, end_dt, save_folder=None):
     results = []
     url = "https://www.drc.gov.cn/Json/GetPageDocuments.ashx"
     headers = {

@@ -7,6 +7,7 @@ INFO_SOURCES = {
     "赛迪研究院": "Source_pool.赛迪研究院",
     "国务院发展研究中心": "Source_pool.国务院发展研究中心",
     "白宫行政令": "Source_pool.白宫行政令",
+    "MIT科技评论10大热点": "Source_pool.MIT_Tech",
 }
 
 # 采集函数
@@ -19,8 +20,11 @@ def collect_from_source(source_name, start_dt, end_dt, keywords=None, save_folde
             # 只对人民日报等支持关键词的采集源传递keywords
             if keywords is not None and "人民日报" in source_name:
                 data = module.collect(start_dt=start_dt, end_dt=end_dt, keywords=keywords, save_folder=save_folder)
+            # MIT科技评论采集源只需要save_folder参数，且采集结果为docx且正文已自动过滤广告/推荐/订阅等
+            elif "MIT科技评论" in source_name or "MIT Tech" in source_name:
+                data = module.collect(save_folder=save_folder)
             else:
-                data = module.collect(start_dt=start_dt, end_dt=end_dt)
+                data = module.collect(start_dt=start_dt, end_dt=end_dt, save_folder=save_folder)
             return data
         else:
             return []
