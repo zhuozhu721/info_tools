@@ -33,7 +33,7 @@ def collect_from_source(source_name, start_dt, end_dt, keywords=None, save_folde
 
 def main_gui():
     today = datetime.now()
-    week_ago = today - timedelta(days=6)
+    week_ago = today - timedelta(days=15)
     default_folder = os.path.join(os.path.expanduser("~"), "Desktop", "download")
     sg.theme('SystemDefault')
     layout = [

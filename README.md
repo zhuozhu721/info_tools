@@ -10,35 +10,58 @@
 
 ```
 info_tools/
-├── info_collector.py                # 主控程序，统一调度各信息源采集
-└── Source_pool/
-    ├── 赛迪研究院.py                # 赛迪研究院采集模块
-    ├── 国务院发展研究中心.py        # 国务院发展研究中心采集模块
-    ├── 白宫行政令.py                # 白宫行政令采集模块
-    └── __init__.py                  # 包初始化文件
+├── info_collector.py           # 命令行主控程序，统一调度各信息源采集
+├── info_collector_gui.py       # 图形界面（推荐使用）
+├── info_collector_gui.spec     # GUI打包配置文件（可选）
+├── README.md                   # 使用说明
+├── Source_pool/                # 采集源模块目录
+│   ├── 赛迪研究院.py           # 赛迪研究院采集模块
+│   ├── 国务院发展研究中心.py   # 国务院发展研究中心采集模块
+│   ├── 白宫行政令.py           # 白宫行政令采集模块
+│   ├── MIT_Tech.py             # MIT科技评论10大热点采集模块
+│   └── __init__.py             # 包初始化文件
+└── ...                         # 其他文件
 ```
 
 ---
 
-## 使用方法
 
-1. **安装依赖**
+## 使用方法（推荐GUI）
 
-   需 Python 3.7+，并安装相关依赖：
+### 1. 安装依赖
 
-   ```bash
-   pip install requests beautifulsoup4 selenium
-   ```
+需 Python 3.7+，并安装相关依赖：
 
-   如需采集白宫行政令，请确保本地已安装 Chrome 浏览器及对应版本的 chromedriver，并在 `白宫行政令.py` 中配置好路径。
+```bash
+pip install requests beautifulsoup4 selenium PySimpleGUI python-docx
+```
 
-2. **运行主程序**
+如需采集白宫行政令，请确保本地已安装 Chrome 浏览器及对应版本的 chromedriver，并在 `白宫行政令.py` 中配置好路径。
 
-   ```bash
-   python info_collector.py
-   ```
+### 2. 启动图形界面（推荐）
 
-   程序将自动采集最近 15 天（可在代码中调整）的信息，并按来源输出结果。
+在 info_tools 目录下运行：
+
+```bash
+python info_collector_gui.py
+```
+
+**使用说明：**
+- 选择需要采集的信息源（可多选，或选择“全部”）。
+- 设置起始日期、结束日期。
+- 选择或输入保存文件夹（默认为桌面 download 文件夹）。
+- 点击“开始”按钮，等待采集进度完成。
+- 采集结果将自动按信息源分类保存在指定文件夹下。
+
+### 3. 命令行采集（可选）
+
+如需批量采集，可运行：
+
+```bash
+python info_collector.py
+```
+
+命令行模式会自动采集最近 10 天的信息，结果保存在桌面 download 文件夹下。
 
 ---
 
